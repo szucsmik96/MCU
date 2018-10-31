@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCU", "MCU\MCU.csproj", "{3D3B2466-FDFF-4940-A465-533FFDBFA81D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D3B2466-FDFF-4940-A465-533FFDBFA81D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D3B2466-FDFF-4940-A465-533FFDBFA81D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D3B2466-FDFF-4940-A465-533FFDBFA81D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D3B2466-FDFF-4940-A465-533FFDBFA81D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B09C83D-1F76-477C-8ED8-F1E4730C34A4}
+	EndGlobalSection
+EndGlobal
