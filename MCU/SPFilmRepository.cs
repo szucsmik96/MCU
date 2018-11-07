@@ -72,6 +72,8 @@ namespace MCU
             bool result = false;
 
             ListItem filmEntity = website.Lists.GetByTitle("Films").GetItemById(id);
+            clientContext.Load(filmEntity);
+            clientContext.ExecuteQuery();
 
             if (filmEntity != null)
             {
@@ -108,6 +110,8 @@ namespace MCU
             FilmDto result = null;
 
             ListItem filmEntity = website.Lists.GetByTitle("Films").GetItemById(id);
+            clientContext.Load(filmEntity);
+            clientContext.ExecuteQuery();
 
             if (filmEntity != null)
             {

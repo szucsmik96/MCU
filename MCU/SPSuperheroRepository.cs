@@ -107,6 +107,9 @@ namespace MCU
 
             ListItem superheroEntity = website.Lists.GetByTitle("Superheroes").GetItemById(id);
 
+            clientContext.Load(superheroEntity);
+            clientContext.ExecuteQuery();
+
             if (superheroEntity != null)
             {
                 result = mapper.Map<SuperheroDto>(superheroEntity);

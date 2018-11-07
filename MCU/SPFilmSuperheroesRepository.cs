@@ -42,14 +42,35 @@ namespace MCU
 
         public IEnumerable<string> GetFilmsBySuperhero(int superheroId)
         {
-            List<int> filmIds = website.Lists.GetByTitle("FilmSuperheroes").GetItems(CamlQuery.CreateAllItemsQuery())
-                .Where(f => Convert.ToInt32(f["SuperheroId"]) == superheroId)
+            CamlQuery camlQuery = new CamlQuery();
+            camlQuery.ViewXml = $@"<View>
+                                    <Query>
+                                        <Where>
+                                            <Eq>
+                                                <FieldRef Name='SuperheroId'/>
+                                                <Value Type='Number'>{superheroId}</Value>
+                                            </Eq>
+                                        </Where>
+                                    </Query>
+                                    </View>";
+
+            ListItemCollection filmsuperheroes = website.Lists.GetByTitle("FilmSuperheroes").GetItems(camlQuery);
+
+            clientContext.Load(filmsuperheroes);
+            clientContext.ExecuteQuery();
+
+            List<int> filmIds=filmsuperheroes
+                //.Where(f => Convert.ToInt32(f["SuperheroId"]) == superheroId)
                 .Select(fs => Convert.ToInt32(fs["Title"]))
                 .ToList();
 
-            List<string> result = website.Lists.GetByTitle("Films").GetItems(CamlQuery.CreateAllItemsQuery())
-                .Where(f => filmIds.Any(id => Convert.ToInt32(f["ID"])== id))
-                .Select(a => a["filmName"].ToString())
+            ListItemCollection films = website.Lists.GetByTitle("Films").GetItems(CamlQuery.CreateAllItemsQuery());
+
+            clientContext.Load(films);
+            clientContext.ExecuteQuery();
+
+            List<string> result= films.Where(f => filmIds.Any(id => Convert.ToInt32(f.Id)== id))
+                .Select(a => a["Title"].ToString())
                 .ToList();
 
             return result;
@@ -57,14 +78,22 @@ namespace MCU
 
         public IEnumerable<string> GetSuperheroesByFilm(int filmId)
         {
-            List<int> superheroIds = website.Lists.GetByTitle("FilmSuperheroes").GetItems(CamlQuery.CreateAllItemsQuery())
-                .Where(f => Convert.ToInt32(f["Title"]) == filmId)
+            ListItemCollection filmsuperheroes = website.Lists.GetByTitle("FilmSuperheroes").GetItems(CamlQuery.CreateAllItemsQuery());
+
+            clientContext.Load(filmsuperheroes);
+            clientContext.ExecuteQuery();
+
+            List<int> superheroIds = filmsuperheroes.Where(f => Convert.ToInt32(f["Title"]) == filmId)
                 .Select(fs => Convert.ToInt32(fs["SuperheroId"]))
                 .ToList();
 
-            List<string> result = website.Lists.GetByTitle("Superheroes").GetItems(CamlQuery.CreateAllItemsQuery())
-                .Where(f => superheroIds.Any(id => Convert.ToInt32(f["ID"]) == id))
-                .Select(fs => fs["superheroName"].ToString())
+            ListItemCollection superheroes = website.Lists.GetByTitle("Superheroes").GetItems(CamlQuery.CreateAllItemsQuery());
+
+            clientContext.Load(superheroes);
+            clientContext.ExecuteQuery();
+
+            List<string> result = superheroes.Where(f => superheroIds.Any(id => Convert.ToInt32(f.Id) == id))
+                .Select(fs => fs["Title"].ToString())
                 .ToList();
 
             return result;

@@ -31,7 +31,7 @@ namespace MCU.Controllers.Api
 
 
         // GET: api/FilmSuperheroes/5
-        public IEnumerable<FilmSuperheroDto> GetFilmSuperheroes(int id)
+        public IEnumerable<FilmSuperheroDto> GetFilmSuperheroes()
         {
             IEnumerable<FilmSuperheroDto> result = filmSuperheroesRepository.GetAll();
 
